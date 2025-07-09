@@ -1,9 +1,9 @@
 package fr.eni.demo.dal;
 
-import fr.eni.demo.bo.Client;
+import fr.eni.demo.bo.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface StockRepository extends JpaRepository<Stock,Long> {
 }
