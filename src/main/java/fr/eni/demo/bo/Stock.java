@@ -4,6 +4,8 @@ package fr.eni.demo.bo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,4 +33,8 @@ public class Stock {
 
   @Column(name="GAME_DAILY_PRICE", nullable = false)
   private Long dailyPrice;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
+  @JoinColumn(name="GAME_ID")
+  private List<GameType> gameType;
 }
