@@ -28,30 +28,32 @@ class DemoApplicationTests {
   @Autowired
   private StockService stockService;
 
-  @Test
-  @DisplayName("-- Test add Client --")
-  void testAddClient() {
-    //Création de l'objet client
-    Client client = new Client();
-    client.setEmail("olivier@test.fr");
-    client.setNom("Parpaillon");
-    client.setPrenom("Olivier");
-
-    clientService.add(client);
-    System.out.println(client);
-  }
-
-  @Test
-  @DisplayName("-- Test add Location --")
-  void testAddLocation() {
-    Location location = new Location();
-    location.setRue("18 Rue de la Paix");
-    location.setCodePostal("75000");
-    location.setVille("Paris");
-
-    locationService.add(location);
-    System.out.println(location);
-  }
+//  DEPREACTED CAUSE : Cant add Client without Location
+//  @Test
+//  @DisplayName("-- Test add Client --")
+//  void testAddClient() {
+//    Client client = new Client();
+//    client.setEmail("olivier@test.fr");
+//    client.setNom("Parpaillon");
+//    client.setPrenom("Olivier");
+//
+//    clientService.add(client);
+//    System.out.println(client);
+//  }
+//
+//  DEPRECATED CAUSE : Orphan removal on Client.Location,
+//  so if you add Location without Client, it will be deleted by the ORM
+//  @Test
+//  @DisplayName("-- Test add Location --")
+//  void testAddLocation() {
+//    Location location = new Location();
+//    location.setRue("18 Rue de la Paix");
+//    location.setCodePostal("75000");
+//    location.setVille("Paris");
+//
+//    locationService.add(location);
+//    System.out.println(location);
+//  }
 
   @Test
   @DisplayName("-- Test add Client with Location --")
@@ -67,7 +69,6 @@ class DemoApplicationTests {
     location.setRue("666 Rue des Enfers");
     location.setCodePostal("44000");
     location.setVille("Nantes");
-    locationService.add(location);
 
     //Ajout de la location au client
     client.setLocation(location);
@@ -110,12 +111,10 @@ class DemoApplicationTests {
     // Création des genres de jeu
     GameType gameTypeFPS = new GameType();
     gameTypeFPS.setName("FPS");
-//    gameTypeService.add(gameTypeFPS);
     System.out.println(gameTypeFPS);
 
     GameType gameTypeOnline = new GameType();
     gameTypeOnline.setName("Multijoueur");
-//    gameTypeService.add(gameTypeOnline);
     System.out.println(gameTypeOnline);
 
     List<GameType> gameTypes = new ArrayList<>();

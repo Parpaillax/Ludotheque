@@ -27,7 +27,7 @@ public class Client {
   @Column(nullable = false, unique = true)
   private String email;
 
-  @OneToOne
+  @OneToOne(cascade =  CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "LOCATION_ID")
   private Location location;
 }
