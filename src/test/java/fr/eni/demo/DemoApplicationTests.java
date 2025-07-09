@@ -3,13 +3,18 @@ package fr.eni.demo;
 import fr.eni.demo.bll.ClientService;
 import fr.eni.demo.bll.GameTypeService;
 import fr.eni.demo.bll.LocationService;
+import fr.eni.demo.bll.StockService;
 import fr.eni.demo.bo.Client;
 import fr.eni.demo.bo.GameType;
 import fr.eni.demo.bo.Location;
+import fr.eni.demo.bo.Stock;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -20,6 +25,8 @@ class DemoApplicationTests {
   private LocationService locationService;
   @Autowired
   private GameTypeService gameTypeService;
+  @Autowired
+  private StockService stockService;
 
   @Test
   @DisplayName("-- Test add Client --")
@@ -77,6 +84,48 @@ class DemoApplicationTests {
     gameType.setName("RPG");
     gameTypeService.add(gameType);
     System.out.println(gameType);
+  }
+
+  @Test
+  @DisplayName("-- Test add Game --")
+  void testAddGame() {
+    Stock game = new Stock();
+    game.setName("Baldurs Gate 3");
+    game.setDailyPrice(25.10);
+    game.setDescription("Jeu RPG avec de multiple fin c'est incroyable");
+    game.setRef("10GBRESF148KQF");
+    stockService.add(game);
+    System.out.println(game);
+  }
+
+  @Test
+  @DisplayName("-- Test add Game with GameType --")
+  void testAddGameWithGameType() {
+    // Création du jeu
+    Stock game = new Stock();
+    game.setName("Counter Strike 2");
+    game.setDailyPrice(8.50);
+    game.setRef("454ZGOIHOZ1215EFZD");
+
+    // Création des genres de jeu
+    GameType gameTypeFPS = new GameType();
+    gameTypeFPS.setName("FPS");
+//    gameTypeService.add(gameTypeFPS);
+    System.out.println(gameTypeFPS);
+
+    GameType gameTypeOnline = new GameType();
+    gameTypeOnline.setName("Multijoueur");
+//    gameTypeService.add(gameTypeOnline);
+    System.out.println(gameTypeOnline);
+
+    List<GameType> gameTypes = new ArrayList<>();
+    gameTypes.add(gameTypeFPS);
+    gameTypes.add(gameTypeOnline);
+
+    // Ajout des genres de jeu au jeu
+    game.setGameType(gameTypes);
+    stockService.add(game);
+    System.out.println(game);
   }
 
 }

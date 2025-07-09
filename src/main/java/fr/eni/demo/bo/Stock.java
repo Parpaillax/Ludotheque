@@ -32,7 +32,7 @@ public class Stock {
   private String ref;
 
   @Column(name="GAME_DAILY_PRICE", nullable = false)
-  private Long dailyPrice;
+  private Double dailyPrice;
 
   @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
   @JoinColumn(name="GAME_ID")
