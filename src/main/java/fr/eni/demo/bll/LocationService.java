@@ -12,14 +12,6 @@ public class LocationService {
   LocationRepository locationRepository;
 
   public void add(Location location) {
-    if (location.getRue() == null || location.getCodePostal() == null || location.getVille() == null) {
-      Location locationTest = new Location();
-      locationTest.setRue("18 Rue de la Paix");
-      locationTest.setCodePostal("75000");
-      locationTest.setVille("Paris");
-      locationRepository.save(locationTest);
-    } else {
-      locationRepository.save(location);
-    }
+    locationRepository.save(location);
   }
 }

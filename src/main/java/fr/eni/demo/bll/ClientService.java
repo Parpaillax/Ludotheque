@@ -12,14 +12,6 @@ public class ClientService {
   private ClientRepository clientRepository;
 
   public void add(Client client) {
-    if (client.getPrenom() == null) {
-      Client clientTest = new Client();
-      clientTest.setPrenom("Olivier");
-      clientTest.setNom("Parpaillon");
-      clientTest.setEmail("olivier@test.fr");
-      clientRepository.save(clientTest);
-    } else {
-      clientRepository.save(client);
-    }
+    clientRepository.save(client);
   }
 }
