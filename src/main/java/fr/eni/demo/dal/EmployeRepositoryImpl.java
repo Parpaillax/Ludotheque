@@ -6,7 +6,7 @@ import fr.eni.demo.bo.Employe;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeDAOImpl implements EmployeDAO {
+public class EmployeRepositoryImpl implements EmployeRepository {
     private List<Employe> employes = new ArrayList<>();
 
     @Override

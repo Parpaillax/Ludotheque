@@ -3,7 +3,7 @@ package fr.eni.demo.dal;
 import java.util.List;
 import fr.eni.demo.bo.Employe;
 
-public interface EmployeDAO {
+public interface EmployeRepository {
     void create(Employe employe);
 
     Employe read(Integer id);

@@ -3,14 +3,14 @@ package fr.eni.demo.bll;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import fr.eni.demo.bo.Employe;
-import fr.eni.demo.dal.EmployeDAO;
+import fr.eni.demo.dal.EmployeRepository;
 import lombok.AllArgsConstructor;
 
 //Permet de faire injecter la couche DAL associée
 @AllArgsConstructor
 @Service
 public class EmployeServiceImpl implements EmployeService {
-  private EmployeDAO employeRepository;
+  private EmployeRepository employeRepository;
 
   @Override
   public void ajouter(Employe employe) {
