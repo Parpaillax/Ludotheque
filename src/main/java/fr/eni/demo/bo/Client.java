@@ -3,11 +3,13 @@ package fr.eni.demo.bo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "locations")
 @Builder
 
 @Entity
@@ -28,6 +30,10 @@ public class Client {
   private String email;
 
   @OneToOne(cascade =  CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "LOCATION_ID")
-  private Location location;
+  @JoinColumn(name = "ADRESSE_ID")
+  private Adresse adresse;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "CLIENT_ID")
+  private List<Location> locations;
 }

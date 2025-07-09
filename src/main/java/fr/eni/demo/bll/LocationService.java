@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class LocationService {
 
   @Autowired
-  LocationRepository locationRepository;
+  private LocationRepository locationRepository;
 
   public void add(Location location) {
     locationRepository.save(location);

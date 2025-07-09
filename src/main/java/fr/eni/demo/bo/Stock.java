@@ -34,7 +34,15 @@ public class Stock {
   @Column(name="GAME_DAILY_PRICE", nullable = false)
   private Double dailyPrice;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
-  @JoinColumn(name="GAME_ID")
+  @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @JoinTable(
+    name = "STOCK_GAME_TYPE",
+    joinColumns = @JoinColumn(name = "GAME_ID"),         // Clé étrangère vers Stock
+    inverseJoinColumns = @JoinColumn(name = "GAME_TYPE_ID") // Clé étrangère vers GameType
+  )
   private List<GameType> gameType;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "GAME_ID")
+  private List<Location> locations;
 }

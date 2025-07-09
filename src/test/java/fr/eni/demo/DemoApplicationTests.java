@@ -1,20 +1,17 @@
 package fr.eni.demo;
 
-import fr.eni.demo.bll.ClientService;
-import fr.eni.demo.bll.GameTypeService;
-import fr.eni.demo.bll.LocationService;
-import fr.eni.demo.bll.StockService;
-import fr.eni.demo.bo.Client;
-import fr.eni.demo.bo.GameType;
-import fr.eni.demo.bo.Location;
-import fr.eni.demo.bo.Stock;
+import fr.eni.demo.bll.*;
+import fr.eni.demo.bo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -22,11 +19,13 @@ class DemoApplicationTests {
   @Autowired
   private ClientService clientService;
   @Autowired
-  private LocationService locationService;
+  private AdresseService adresseService;
   @Autowired
   private GameTypeService gameTypeService;
   @Autowired
   private StockService stockService;
+  @Autowired
+  private LocationService locationService;
 
 //  DEPREACTED CAUSE : Cant add Client without Location
 //  @Test
@@ -57,7 +56,7 @@ class DemoApplicationTests {
 
   @Test
   @DisplayName("-- Test add Client with Location --")
-  void testAddClientWithLocation() {
+  void testAddClientWithAdresse() {
     // Création du client
     Client client = new Client();
     client.setEmail("julien@test.fr");
@@ -65,17 +64,17 @@ class DemoApplicationTests {
     client.setPrenom("Julien");
 
     //Création de la location
-    Location location = new Location();
-    location.setRue("666 Rue des Enfers");
-    location.setCodePostal("44000");
-    location.setVille("Nantes");
+    Adresse adresse = new Adresse();
+    adresse.setRue("666 Rue des Enfers");
+    adresse.setCodePostal("44000");
+    adresse.setVille("Nantes");
 
     //Ajout de la location au client
-    client.setLocation(location);
+    client.setAdresse(adresse);
     clientService.add(client);
 
     System.out.println(client);
-    System.out.println(location);
+    System.out.println(adresse);
   }
 
   @Test
@@ -125,6 +124,23 @@ class DemoApplicationTests {
     game.setGameType(gameTypes);
     stockService.add(game);
     System.out.println(game);
+  }
+
+  @Test
+  @DisplayName("-- Test add location game to a client --")
+  void testAddLocationGame() {
+    // Find a client by his ID
+    Optional<Client> client = clientService.findById(1L);
+    // Find a Game by his ID
+    Optional<Stock> game = stockService.findById(1L);
+
+    // Create the Location line for this client and the game
+    Location gameLocation =  new Location();
+    gameLocation.setStartDate(Date.valueOf(LocalDate.of(2025, 7, 8)));
+    gameLocation.setClient(client.get());
+    gameLocation.setStock(game.get());
+    locationService.add(gameLocation);
+    System.out.println(gameLocation);
   }
 
 }

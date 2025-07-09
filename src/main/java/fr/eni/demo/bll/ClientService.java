@@ -5,6 +5,8 @@ import fr.eni.demo.dal.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClientService {
 
@@ -13,5 +15,9 @@ public class ClientService {
 
   public void add(Client client) {
     clientRepository.save(client);
+  }
+
+  public Optional<Client> findById(Long clientId) {
+    return clientRepository.findById(clientId);
   }
 }

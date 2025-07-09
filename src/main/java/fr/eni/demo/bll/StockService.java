@@ -5,6 +5,8 @@ import fr.eni.demo.dal.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StockService {
 
@@ -13,5 +15,9 @@ public class StockService {
 
   public void add(Stock stock) {
     stockRepository.save(stock);
+  }
+
+  public Optional<Stock> findById(Long gameId) {
+    return stockRepository.findById(gameId);
   }
 }

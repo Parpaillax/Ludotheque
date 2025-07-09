@@ -3,11 +3,13 @@ package fr.eni.demo.bo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"client", "stock"})
 @Builder
 
 @Entity
@@ -16,16 +18,20 @@ public class Location {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "LOCATION_ID")
+  @Column(name="LOCATION_ID")
   private Integer id;
 
-  @Column(name = "STREET",nullable = false, length = 250)
-  private String rue;
+  @Column(name = "LOCATION_START_DATE", nullable = false)
+  private Date startDate;
 
-  @Column(name = "POSTAL_CODE",nullable = false, length = 5)
-  private String codePostal;
+  @Column(name = "LOCATION_END_DATE")
+  private Date endDate;
 
-  @Column(name = "CITY",nullable = false, length = 150)
-  private String ville;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CLIENT_ID", nullable = false)
+  private Client client;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "GAME_ID", nullable = false)
+  private Stock stock;
 }

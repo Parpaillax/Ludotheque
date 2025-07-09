@@ -1,9 +1,9 @@
 package fr.eni.demo.dal;
 
-import fr.eni.demo.bo.Location;
+import fr.eni.demo.bo.Adresse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationRepository extends JpaRepository<Location, Integer> {
+public interface AdresseRepository extends JpaRepository<Adresse, Long> {
 }
