@@ -1,17 +1,22 @@
-package fr.eni.demo.bo;
+package fr.eni.demo.dal;
 
+import fr.eni.demo.bo.Adresse;
+import fr.eni.demo.bo.Client;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ClientTest {
+public class ClientRepositoryTest {
+
+  @Autowired
+  ClientRepository clientRepo;
 
   @Test
-  @DisplayName("-- Test add Client and adresse with builder : SUCESS --")
+  @DisplayName("-- Test add Client and Adresse with Repo : SUCCESS --")
   void testAddClientSuccess() {
     Client client = new Client();
     client.setEmail("olivier@test.fr");
@@ -26,22 +31,23 @@ public class ClientTest {
 
     assertNotNull(adresse);
     assertNotNull(client);
+    clientRepo.save(client);
     System.out.println(client);
   }
 
   @Test
-  @DisplayName("-- Test add Client with builder: FAILED --")
-  void testAddClientFail() {
+  @DisplayName("-- Test add Client without Adresse with repo : FAILED --")
+  void testAddClientFailed() {
     Client client = new Client();
     client.setEmail("julien@test.fr");
     client.setNom("Chateau");
     client.setPrenom("Julien");
 
-    assertNotNull(client);
     assertNull(client.getAdresse());
+    assertThrows(Exception.class, () -> {
+      clientRepo.saveAndFlush(client);
+    });
     System.out.println(client);
     System.out.println(client.getAdresse());
   }
-
-
 }

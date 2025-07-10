@@ -27,11 +27,11 @@ public class Location {
   @Column(name = "LOCATION_END_DATE")
   private Date endDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "CLIENT_ID", nullable = false)
   private Client client;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "GAME_ID", nullable = false)
   private Stock stock;
 }

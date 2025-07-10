@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class AdresseTest {
 
   @Test
-  @DisplayName("-- Test add Adresse builder : SUCCESS --")
+  @DisplayName("-- Test add Adresse with builder : SUCCESS --")
   void testAddAdresseSuccess() {
     Adresse adresse = new Adresse();
     adresse.setCodePostal("75000");
@@ -23,7 +23,7 @@ public class AdresseTest {
   }
 
   @Test
-  @DisplayName("-- Test add Addresse builder : FAILED --")
+  @DisplayName("-- Test add Addresse with builder : FAILED --")
   void testAddAdresseFailed() {
     Adresse adresse = new Adresse();
     adresse.setCodePostal("44000");

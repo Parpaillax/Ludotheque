@@ -1,7 +1,9 @@
-package fr.eni.demo.bo;
+package fr.eni.demo.dal;
 
+import fr.eni.demo.bo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
@@ -9,48 +11,44 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-public class LocationTest {
+public class LocationRepositoryTest {
+
+  @Autowired
+  LocationRepository locationRepo;
 
   @Test
-  @DisplayName("-- Test add Location, game and client with builder : SUCCESS --")
+  @DisplayName("-- Test add Location, game and client with repo : SUCCESS --")
   void testAddLocationGameSuccess() {
-    Adresse adresse = new Adresse();
-    adresse.setVille("Paris");
-    adresse.setRue("Rue de la paix");
-    adresse.setCodePostal("75000");
-
-    assertNotNull(adresse);
-    System.out.println(adresse);
-
     Client client = new Client();
-    client.setEmail("test@test.fr");
-    client.setAdresse(adresse);
-    client.setPrenom("test");
-    client.setNom("test");
+    client.setEmail("olivier@test.fr");
+    client.setNom("Parpaillon");
+    client.setPrenom("Olivier");
 
+    Adresse adresse = new Adresse();
+    adresse.setRue("666 Rue des Enfers");
+    adresse.setCodePostal("44000");
+    adresse.setVille("Nantes");
+    client.setAdresse(adresse);
+    assertNotNull(adresse);
     assertNotNull(client);
     System.out.println(client);
 
     GameType gt = new GameType();
-    gt.setName("Plateforme");
+    gt.setName("FPS");
     List<GameType> gtList = new ArrayList<>();
-    gtList.add(gt);
     assertNotNull(gt);
-    assertThat(gtList).hasSize(1);
-    System.out.println(gtList);
+    gtList.add(gt);
 
     Stock stock = new Stock();
-    stock.setName("Super Mario Bros");
-    stock.setDescription("Jeu de plateforme pas compliqué");
-    stock.setDailyPrice(8.10);
     stock.setGameType(gtList);
-    stock.setRef("654POAZJIHGOG646");
-
+    stock.setRef("ZEG45456ZGJNZG4GSG");
+    stock.setName("Counter Strike 2");
+    stock.setDailyPrice(15.25);
+    stock.setDescription("Jeu de tir a la première personne stratégique");
     assertNotNull(stock);
     System.out.println(stock);
 
@@ -59,35 +57,36 @@ public class LocationTest {
     l.setStock(stock);
     l.setStartDate(Date.valueOf(LocalDate.of(2025, 7, 8)));
     assertNotNull(l);
+    locationRepo.saveAndFlush(l);
     System.out.println(l);
   }
 
   @Test
-  @DisplayName("-- Test add location and game but without client with builder : FAILED --")
+  @DisplayName("-- Test add Location and game but without client with repo : FAILED --")
   void testAddLocationGameFailure() {
     GameType gt = new GameType();
-    gt.setName("Aventure");
+    gt.setName("FPS");
     List<GameType> gtList = new ArrayList<>();
     gtList.add(gt);
     assertNotNull(gt);
-    assertThat(gtList).hasSize(1);
-    System.out.println(gtList);
 
     Stock stock = new Stock();
-    stock.setName("Tomb Raider");
-    stock.setDescription("Jeu d'aventure et d'archéologie coolos");
-    stock.setDailyPrice(18.10);
     stock.setGameType(gtList);
-    stock.setRef("ZOIGHE45ZPIG452");
-
+    stock.setRef("ZEG45456ZGJNZG4GSG");
+    stock.setName("Counter Strike 2");
+    stock.setDailyPrice(15.25);
+    stock.setDescription("Jeu de tir a la première personne stratégique");
     assertNotNull(stock);
     System.out.println(stock);
 
     Location l = new Location();
     l.setStock(stock);
     l.setStartDate(Date.valueOf(LocalDate.of(2025, 7, 8)));
-    assertNull(l.getClient());
     assertNotNull(l);
+    assertNull(l.getClient());
+    assertThrows(Exception.class, () -> {
+      locationRepo.saveAndFlush(l);
+    });
     System.out.println(l);
   }
 }

@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class StockTest {
 
   @Test
-  @DisplayName("-- Test add Stock builder : SUCCESS --")
+  @DisplayName("-- Test add Stock and gameType with builder : SUCCESS --")
   void testAddStockBuilder() {
     GameType gt = new GameType();
     gt.setName("RPG");
@@ -37,7 +37,7 @@ public class StockTest {
   }
 
   @Test
-  @DisplayName("-- Test add Stock builder : FAILED --")
+  @DisplayName("-- Test add Stock and gameType with builder : FAILED --")
   void testAddStockBuilderFailed() {
     GameType gt = new GameType();
     gt.setName("Plateforme");
@@ -51,6 +51,7 @@ public class StockTest {
     stock.setDescription("Jeu de plateforme pas compliqué");
     stock.setDailyPrice(8.10);
     stock.setGameType(gtList);
+    assertNotNull(stock);
     assertNull(stock.getRef());
   }
 }
