@@ -130,14 +130,14 @@ class DemoApplicationTests {
   @DisplayName("-- Test add location game to a client --")
   void testAddLocationGame() {
     // Find a client by his ID
-    Optional<Client> client = clientServiceImpl.findById(1L);
+    Client client = clientServiceImpl.findById(1L);
     // Find a Game by his ID
     Optional<Stock> game = stockServiceImpl.findById(1L);
 
     // Create the Location line for this client and the game
     Location gameLocation =  new Location();
     gameLocation.setStartDate(Date.valueOf(LocalDate.of(2025, 7, 8)));
-    gameLocation.setClient(client.get());
+    gameLocation.setClient(client);
     gameLocation.setStock(game.get());
     locationServiceImpl.add(gameLocation);
     System.out.println(gameLocation);
