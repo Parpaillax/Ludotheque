@@ -17,15 +17,15 @@ import java.util.Optional;
 class DemoApplicationTests {
 
   @Autowired
-  private ClientService clientService;
+  private ClientServiceImpl clientServiceImpl;
   @Autowired
-  private AdresseService adresseService;
+  private AdresseServiceImpl adresseServiceImpl;
   @Autowired
-  private GameTypeService gameTypeService;
+  private GameTypeServiceImpl gameTypeService;
   @Autowired
-  private StockService stockService;
+  private StockServiceImpl stockServiceImpl;
   @Autowired
-  private LocationService locationService;
+  private LocationServiceImpl locationServiceImpl;
 
 //  DEPREACTED CAUSE : Cant add Client without Location
 //  @Test
@@ -71,7 +71,7 @@ class DemoApplicationTests {
 
     //Ajout de la location au client
     client.setAdresse(adresse);
-    clientService.add(client);
+    clientServiceImpl.add(client);
 
     System.out.println(client);
     System.out.println(adresse);
@@ -94,7 +94,7 @@ class DemoApplicationTests {
     game.setDailyPrice(25.10);
     game.setDescription("Jeu RPG avec de multiple fin c'est incroyable");
     game.setRef("10GBRESF148KQF");
-    stockService.add(game);
+    stockServiceImpl.add(game);
     System.out.println(game);
   }
 
@@ -122,7 +122,7 @@ class DemoApplicationTests {
 
     // Ajout des genres de jeu au jeu
     game.setGameType(gameTypes);
-    stockService.add(game);
+    stockServiceImpl.add(game);
     System.out.println(game);
   }
 
@@ -130,16 +130,16 @@ class DemoApplicationTests {
   @DisplayName("-- Test add location game to a client --")
   void testAddLocationGame() {
     // Find a client by his ID
-    Optional<Client> client = clientService.findById(1L);
+    Optional<Client> client = clientServiceImpl.findById(1L);
     // Find a Game by his ID
-    Optional<Stock> game = stockService.findById(1L);
+    Optional<Stock> game = stockServiceImpl.findById(1L);
 
     // Create the Location line for this client and the game
     Location gameLocation =  new Location();
     gameLocation.setStartDate(Date.valueOf(LocalDate.of(2025, 7, 8)));
     gameLocation.setClient(client.get());
     gameLocation.setStock(game.get());
-    locationService.add(gameLocation);
+    locationServiceImpl.add(gameLocation);
     System.out.println(gameLocation);
   }
 
