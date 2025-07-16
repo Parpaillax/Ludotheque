@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,37 +17,53 @@ public class AddressController {
 
     private final AdresseService adresseService;
 
+    // Creer nouvelle adresse
     @PostMapping
     public ResponseEntity<Map<String, Object>> create(@RequestBody Adresse adresse) {
-        adresseService.add(adresse);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Adresse added");
-        response.put("status", true);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+        Adresse saved = adresseService.add(adresse);
+        return buildResponse("Adresse added", true, saved);
     }
 
+    // Recuperer adresse par id
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> findById(@PathVariable Long id) {
-        Adresse result = adresseService.findById(id);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Adresse find");
-        response.put("status", true);
-        response.put("data", result);
-
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Map<String, Object>> findById(@PathVariable String id) {
+        Adresse result = adresseService.findById(Long.valueOf(id));
+        return buildResponse("Adresse found", true, result);
     }
 
-    @GetMapping("/client/{id}")
-    public ResponseEntity<Map<String, Object>> findByIdClient(@PathVariable Long id) {
-        Adresse result = adresseService.findAdresseByClientId(id);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Adresse find");
-        response.put("status", true);
-        response.put("data", result);
-
-        return ResponseEntity.ok(response);
+    // Recuperer toutes les adresses
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> findAll() {
+        List<Adresse> result = adresseService.findAll();
+        return buildResponse("All adresses fetched", true, result);
     }
 
+    // Maj adresse par id
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> update(@PathVariable String id, @RequestBody Adresse adresse) {
+        Adresse updated = adresseService.update(Long.valueOf(id), adresse);
+        return buildResponse("Adresse updated", true, updated);
+    }
+
+    // Supprimer adresse par id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> delete(@PathVariable String id) {
+        adresseService.delete(Long.valueOf(id));
+        return buildResponse("Adresse deleted", true, null);
+    }
+
+    // Recuperer adresse associee à un client via son id
+    @GetMapping("/client/{clientId}")
+    public ResponseEntity<Map<String, Object>> findByClientId(@PathVariable String clientId) {
+        Adresse result = adresseService.findAdresseByClientId(Long.valueOf(clientId));
+        return buildResponse("Adresse found for client", true, result);
+    }
+
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", message);
+        response.put("status", status);
+        response.put("data", data);
+        return ResponseEntity.ok(response);
+    }
 }

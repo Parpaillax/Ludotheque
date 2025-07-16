@@ -18,74 +18,52 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    // Ajouter un client
+    // Creer un client
     @PostMapping
     public ResponseEntity<Map<String, Object>> create(@RequestBody Client client) {
         clientService.add(client);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Client created successfully");
-        response.put("status", 201);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Client created", true, new HashMap<>());
     }
 
-    // Chercher des clients par nom
+    // Chercher par nom
     @GetMapping("/name/{name}")
-    public ResponseEntity<Map<String, Object>> findByEmail(@PathVariable String name) {
+    public ResponseEntity<Map<String, Object>> findByName(@PathVariable String name) {
         List<Client> result = clientService.findByName(name);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "List of Clients found");
-        response.put("status", 200);
-        response.put("data", result);
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Clients found", true, result);
     }
 
-    // Chercher des clients par nom
+    // Chercher par id
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> findByEmail(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> findById(@PathVariable Long id) {
         Client result = clientService.findById(id);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Client found");
-        response.put("status", true);
-        response.put("data", result);
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Client found", true, result);
     }
 
-    // Modifier un client
+    // MAJ client complet
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> fullUpdate(@PathVariable Long id, @RequestBody Client client, @RequestBody Adresse adresse) {
-        clientService.fullUpdate(id, client, adresse);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Client updated successfully");
-        response.put("status", true);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Map<String, Object>> fullUpdate(@PathVariable Long id, @RequestBody Client client) {
+        clientService.fullUpdate(id, client, client.getAdresse());
+        return buildResponse("Client updated", true, new HashMap<>());
     }
 
-    // Modifier l'address d'un client
+    // MAJ adresse seule
     @PutMapping("/address/{id}")
     public ResponseEntity<Map<String, Object>> updateAddress(@PathVariable Long id, @RequestBody Adresse adresse) {
         clientService.updateLocation(id, adresse);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Client address updated successfully");
-        response.put("status", true);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Address updated", true, new HashMap<>());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
-      clientService.delete(id);
-      Map<String, Object> response = new HashMap<>();
-      response.put("message", "Client deleted successfully");
-      response.put("status", 200);
-      response.put("data", new HashMap<>());
-      return ResponseEntity.ok(response);
+        clientService.delete(id);
+        return buildResponse("Address deleted", true, new HashMap<>());
+    }
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", message);
+        response.put("status", status);
+        response.put("data", data);
+        return ResponseEntity.ok(response);
     }
 
 }

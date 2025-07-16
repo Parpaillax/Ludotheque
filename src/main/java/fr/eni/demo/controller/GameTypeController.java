@@ -4,10 +4,7 @@ import fr.eni.demo.bll.GameTypeService;
 import fr.eni.demo.bo.GameType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,15 +16,18 @@ public class GameTypeController {
 
     private final GameTypeService gameTypeService;
 
+    // Creer un type de jeu
     @PostMapping
     public ResponseEntity<Map<String, Object>> create(@RequestBody GameType gameType) {
         gameTypeService.add(gameType);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Game type create");
-        response.put("status", true);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Game type created", true, new HashMap<>());
     }
 
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", message);
+        response.put("status", status);
+        response.put("data", data);
+        return ResponseEntity.ok(response);
+    }
 }
