@@ -24,7 +24,7 @@ public class ClientController {
         clientService.add(client);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Client created successfully");
-        response.put("status", true);
+        response.put("status", 201);
         response.put("data", new HashMap<>());
 
         return ResponseEntity.ok(response);
@@ -36,7 +36,7 @@ public class ClientController {
         List<Client> result = clientService.findByName(name);
         Map<String, Object> response = new HashMap<>();
         response.put("message", "List of Clients found");
-        response.put("status", true);
+        response.put("status", 200);
         response.put("data", result);
 
         return ResponseEntity.ok(response);

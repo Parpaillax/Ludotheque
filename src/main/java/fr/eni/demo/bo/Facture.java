@@ -26,4 +26,8 @@ public class Facture {
 
   @Column(name = "DATE_PAY")
   private Date datePay;
+
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "CLIENT_ID", nullable = false)
+  private Client client;
 }

@@ -36,4 +36,8 @@ public class Client {
   @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "CLIENT_ID")
   private List<Location> locations;
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "CLIENT_ID")
+  private List<Facture> factures;
 }
