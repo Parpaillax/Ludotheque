@@ -11,4 +11,5 @@ public interface ClientService {
   List<Client> findByName(String name);
   void fullUpdate(Long id, Client client, Adresse adresseDetails);
   void updateLocation(Long idClient, Adresse adresseDetails);
+  void delete(Long idClient);
 }

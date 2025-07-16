@@ -78,4 +78,14 @@ public class ClientController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/{id]")
+    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
+      clientService.delete(id);
+      Map<String, Object> response = new HashMap<>();
+      response.put("message", "Client deleted successfully");
+      response.put("status", 200);
+      response.put("data", new HashMap<>());
+      return ResponseEntity.ok(response);
+    }
+
 }

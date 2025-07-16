@@ -49,6 +49,7 @@ public class ClientServiceImpl implements ClientService {
     return clients;
   }
 
+  @Override
   public void fullUpdate(Long id, Client clientDetails, Adresse adresseDetails) {
     Client client = clientRepository.findById(id)
       .orElseThrow(() -> new EntityNotFoundException("Client non trouvé avec l'id " + id));
@@ -62,11 +63,20 @@ public class ClientServiceImpl implements ClientService {
     clientRepository.save(client);
   }
 
+  @Override
   public void updateLocation(Long idClient, Adresse adresseDetails) {
     Client client = clientRepository.findById(idClient)
       .orElseThrow(() -> new EntityNotFoundException("Client non trouvé avec l'id " + idClient));
 
     client.setAdresse(adresseDetails);
     clientRepository.save(client);
+  }
+
+  @Override
+  public void delete(Long idClient) {
+    Client client = clientRepository.findById(idClient)
+      .orElseThrow(() -> new EntityNotFoundException("Client non trouvé avec l'id " + idClient));
+
+    clientRepository.delete(client);
   }
 }
