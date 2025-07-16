@@ -1,16 +1,13 @@
 package fr.eni.demo.controller;
 
 import fr.eni.demo.bll.AdresseService;
-import fr.eni.demo.bll.StockService;
 import fr.eni.demo.bo.Adresse;
-import fr.eni.demo.bo.Stock;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/address")

@@ -2,7 +2,6 @@ package fr.eni.demo.controller;
 
 import fr.eni.demo.bll.FactureService;
 import fr.eni.demo.bo.Facture;
-import fr.eni.demo.bo.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

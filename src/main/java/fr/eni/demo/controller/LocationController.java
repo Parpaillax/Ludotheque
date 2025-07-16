@@ -1,8 +1,6 @@
 package fr.eni.demo.controller;
 
-import fr.eni.demo.bll.ClientService;
 import fr.eni.demo.bll.LocationService;
-import fr.eni.demo.bo.Client;
 import fr.eni.demo.bo.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
