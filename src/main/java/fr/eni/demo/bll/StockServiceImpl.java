@@ -1,11 +1,14 @@
 package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Stock;
+import fr.eni.demo.bo.StockCount;
 import fr.eni.demo.dal.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StockServiceImpl implements StockService{
@@ -24,5 +27,16 @@ public class StockServiceImpl implements StockService{
   @Override
   public Optional<Stock> findById(Long gameId) {
     return stockRepository.findById(gameId);
+  }
+
+  @Override
+  public List<StockCount> findAllByName(String name){
+    List<Stock> stocks = stockRepository.findByNameIsContainingIgnoreCase(name);
+    List<StockCount> result = stocks.stream()
+      .collect(Collectors.groupingBy(Stock::getName, Collectors.counting()))
+      .entrySet().stream()
+      .map(entry -> new StockCount(entry.getKey(), entry.getValue()))
+      .toList();
+    return result;
   }
 }

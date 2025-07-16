@@ -39,3 +39,4 @@ public class Stock {
   @Field(name = "LOCATIONS")
   private List<Location> locations;
 }
+
