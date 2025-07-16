@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Adresse {
 
   @Id
-  private Integer id;
+  private String id;
 
   @Field(name = "STREET")
   private String rue;

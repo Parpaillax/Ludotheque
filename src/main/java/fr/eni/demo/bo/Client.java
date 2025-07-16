@@ -36,7 +36,7 @@ public class Client {
   @Field(name = "LOCATIONS")
   private List<Location> locations;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "CLIENT_ID")
+  @DBRef
+  @Field(name = "FACTURES")
   private List<Facture> factures;
 }

@@ -6,4 +6,5 @@ public interface AdresseService {
   Adresse add(Adresse adresse);
   Adresse findById(Long id);
   Adresse findAdresseByClientId(Long clientId);
+
 }
