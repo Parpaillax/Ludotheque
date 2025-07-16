@@ -1,24 +1,21 @@
 package fr.eni.demo.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
-
-@Entity
-@Table(name="GAME_TYPE")
+@Document(collection = "game_type")
 public class GameType {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "GAME_TYPE_ID")
-  private Integer id;
+  private String id;
 
-  @Column(name="GAME_TYPE_NAME", nullable = false)
+  @Field(name = "GAME_TYPE_NAME")
   private String name;
 }
