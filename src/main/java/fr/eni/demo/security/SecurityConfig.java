@@ -66,7 +66,7 @@ public class SecurityConfig {
         UserDetails user = User.builder()
                 .username("user")
                 .password(encoder.encode("password"))
-                .roles("USER")
+                .roles("EMPLOYE")
                 .build();
 
         return new InMemoryUserDetailsManager(user);

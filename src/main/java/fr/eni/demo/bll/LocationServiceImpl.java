@@ -4,6 +4,8 @@ import fr.eni.demo.bo.Location;
 import fr.eni.demo.dal.LocationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class LocationServiceImpl implements LocationService {
   private LocationRepository locationRepository;
@@ -16,12 +18,11 @@ public class LocationServiceImpl implements LocationService {
   @Override
   public void add(Location location) {
     locationRepository.save(location);
-    stockService.isRent(location.getStock(), true);
   }
 
   @Override
-  public void update(Location location) {
-    locationRepository.save(location);
-    stockService.isRent(location.getStock(), false);
+  public Location findByCodeBarre(String codeBarre) {
+    return locationRepository.findByCodeBarre(codeBarre)
+            .orElseThrow(() -> new NoSuchElementException("Code-barre inconnu : " + codeBarre));
   }
 }
