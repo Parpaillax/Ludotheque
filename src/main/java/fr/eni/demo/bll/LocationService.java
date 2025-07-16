@@ -7,4 +7,5 @@ public interface LocationService {
   void add(Location location);
   void update(Location location);
   void updateDateEnd(String id, Location location);
+  Location findByCodeBarre(String codeBarre);
 }

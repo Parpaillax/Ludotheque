@@ -19,6 +19,9 @@ public class Location {
   @Id
   private String id;
 
+  @Field(name = "CODE_BARRE")
+  private String codeBarre;
+
   @Field(name = "LOCATION_START_DATE")
   private Date startDate;
 
