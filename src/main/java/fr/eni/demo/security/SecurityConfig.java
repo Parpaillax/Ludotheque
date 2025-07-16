@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/**").hasAnyRole("USER")
                         .anyRequest().denyAll()
                 )
                 .formLogin(Customizer.withDefaults());
