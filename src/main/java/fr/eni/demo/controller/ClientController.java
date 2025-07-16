@@ -58,6 +58,7 @@ public class ClientController {
         clientService.delete(id);
         return buildResponse("Address deleted", true, new HashMap<>());
     }
+
     private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
         Map<String, Object> response = new HashMap<>();
         response.put("message", message);

@@ -1,6 +1,7 @@
 package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Facture;
+import fr.eni.demo.bo.Location;
 import fr.eni.demo.dal.FactureRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +36,10 @@ public class FactureServiceImpl implements FactureService {
   public List<Facture> getUnpayed() {
     return factureRepo.findByDatePayEmpty();
   }
+
+  @Override
+  public void add(Facture facture) {
+    factureRepo.save(facture);
+  }
+
 }
