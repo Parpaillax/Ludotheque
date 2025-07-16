@@ -67,7 +67,7 @@ public class ClientController {
     }
 
     // Modifier l'address d'un client
-    @PutMapping("/{id}")
+    @PutMapping("/address/{id}")
     public ResponseEntity<Map<String, Object>> updateAddress(@PathVariable Long id, @RequestBody Adresse adresse) {
         clientService.updateLocation(id, adresse);
         Map<String, Object> response = new HashMap<>();

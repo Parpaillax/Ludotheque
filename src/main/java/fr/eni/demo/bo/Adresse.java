@@ -1,31 +1,29 @@
 package fr.eni.demo.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
-
-@Entity
-@Table(name="ADRESSES")
+@Document(collection = "address")
 public class Adresse {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ADRESSE_ID")
   private Integer id;
 
-  @Column(name = "STREET",nullable = false, length = 250)
+  @Field(name = "STREET")
   private String rue;
 
-  @Column(name = "POSTAL_CODE",nullable = false, length = 5)
+  @Field(name = "POSTAL_CODE")
   private String codePostal;
 
-  @Column(name = "CITY",nullable = false, length = 150)
+  @Field(name = "CITY")
   private String ville;
 
 }
