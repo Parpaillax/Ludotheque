@@ -4,4 +4,5 @@ import fr.eni.demo.bo.Location;
 
 public interface LocationService {
   void add(Location location);
+  void update(Location location);
 }

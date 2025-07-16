@@ -11,5 +11,6 @@ public interface StockService {
   Optional<Stock> findById(Long gameId);
   List<StockCount> findAllByName(String name);
   Stock findByRef(String ref);
+  void isRent(Stock stock, boolean value);
 }
 
