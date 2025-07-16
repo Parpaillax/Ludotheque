@@ -1,8 +1,10 @@
 package fr.eni.demo.bo;
 
-
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -10,39 +12,30 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
-
-@Entity
-@Table(name="GAME")
+@Document(collection = "stock")
 public class Stock {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "GAME_ID")
-  private Integer id;
+  private String id;
 
-  @Column(name="GAME_NAME", nullable = false)
+  @Field(name = "GAME_NAME")
   private String name;
 
-  @Column(name="GAME_DESCRIPTION")
+  @Field(name = "GAME_DESCRIPTION")
   private String description;
 
-  @Column(name="GAME_REF", nullable = false)
+  @Field(name = "GAME_REF")
   private String ref;
 
-  @Column(name="GAME_DAILY_PRICE", nullable = false)
+  @Field(name = "GAME_DAILY_PRICE")
   private Double dailyPrice;
 
-  @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinTable(
-    name = "STOCK_GAME_TYPE",
-    joinColumns = @JoinColumn(name = "GAME_ID"),         // Clé étrangère vers Stock
-    inverseJoinColumns = @JoinColumn(name = "GAME_TYPE_ID") // Clé étrangère vers GameType
-  )
+  @DBRef
+  @Field(name = "GAME_TYPE")
   private List<GameType> gameType;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "GAME_ID")
+  @DBRef
+  @Field(name = "LOCATIONS")
   private List<Location> locations;
 }

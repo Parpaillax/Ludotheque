@@ -1,7 +1,10 @@
 package fr.eni.demo.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
@@ -9,29 +12,24 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"client", "stock"})
 @Builder
-
-@Entity
-@Table(name="LOCATIONS")
+@Document(collection = "locations")
 public class Location {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="LOCATION_ID")
-  private Integer id;
+  private String id;
 
-  @Column(name = "LOCATION_START_DATE", nullable = false)
+  @Field(name = "LOCATION_START_DATE")
   private Date startDate;
 
-  @Column(name = "LOCATION_END_DATE")
+  @Field(name = "LOCATION_END_DATE")
   private Date endDate;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "CLIENT_ID", nullable = false)
+  @DBRef
+  @Field(name = "CLIENT")
   private Client client;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "GAME_ID", nullable = false)
+  @DBRef
+  @Field(name = "STOCK")
   private Stock stock;
 }

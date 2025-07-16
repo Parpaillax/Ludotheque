@@ -1,7 +1,10 @@
 package fr.eni.demo.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -9,31 +12,27 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "locations")
 @Builder
-
-@Entity
-@Table(name="CLIENTS")
+@Document(collection = "clients")
 public class Client {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "CLIENT_ID")
-  private Integer id;
 
-  @Column(name= "LAST_NAME", nullable = false, length = 90)
+  @Id
+  private String id;
+
+  @Field(name = "LAST_NAME")
   private String nom;
 
-  @Column(name= "FIRST_NAME", nullable = false, length = 150)
+  @Field(name = "FIRST_NAME")
   private String prenom;
 
-  @Column(nullable = false, unique = true)
+  @Field(name = "EMAIL")
   private String email;
 
-  @OneToOne(cascade =  CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "ADRESSE_ID")
+  @DBRef
+  @Field(name = "ADRESSE")
   private Adresse adresse;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "CLIENT_ID")
+  @DBRef
+  @Field(name = "LOCATIONS")
   private List<Location> locations;
 }
