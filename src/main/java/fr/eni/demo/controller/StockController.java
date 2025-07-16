@@ -30,15 +30,15 @@ public class StockController {
   @GetMapping("/{id}")
   public ResponseEntity<Map<String, Object>> findById(@PathVariable Long id) {
     Optional<Stock> result = stockService.findById(id);
-    return buildResponse("Stock added", true, result);
+    return buildResponse("Stock fetched", true, result);
   }
 
   // Trouver les jeux par nom et compter le result par nom
   // ACCESS PUBLIC
-  @GetMapping("/{name}")
+  @GetMapping("/search/{name}")
   public ResponseEntity<Map<String, Object>> findByName(@PathVariable String name) {
     List<StockCount> result = stockService.findAllByName(name);
-    return buildResponse("Stock added", true, result);
+    return buildResponse("List stock fetched", true, result);
   }
 
   private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {

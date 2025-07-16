@@ -38,6 +38,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/clients/**").hasRole("EMPLOYE")
+                        .requestMatchers("/api/address/**").hasRole("EMPLOYE")
+                        .requestMatchers("/api/facture/**").hasRole("EMPLOYE")
+                        .requestMatchers("/api/gametype/**").hasRole("EMPLOYE")
+                        .requestMatchers("/api/location/**").hasRole("EMPLOYE")
+                        .requestMatchers("/api/stock/search/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
