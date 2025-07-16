@@ -1,6 +1,7 @@
 package fr.eni.demo.controller;
 
 import fr.eni.demo.bll.FactureService;
+import fr.eni.demo.bll.LocationService;
 import fr.eni.demo.bo.Facture;
 import fr.eni.demo.bo.Location;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class FactureController {
 
   private final FactureService factureService;
+  private final LocationService locationService;
 
   // Toutes les factures
   @GetMapping
@@ -46,7 +48,7 @@ public class FactureController {
     double price = 0;
     for(Location location : locations){
       price += location.getStock().getDailyPrice();
-
+      locationService.updateDateEnd(location.getId(), location);
     }
     Facture facture = new Facture();
     facture.setClient(locations.get(0).getClient());
