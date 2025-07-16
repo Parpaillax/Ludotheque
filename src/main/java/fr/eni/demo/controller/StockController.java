@@ -41,6 +41,12 @@ public class StockController {
     return buildResponse("List stock fetched", true, result);
   }
 
+  @GetMapping("/{ref}")
+  public ResponseEntity<Map<String, Object>> findByRef(@PathVariable String ref) {
+    Stock result = stockService.findByRef(ref);
+    return buildResponse("Stock fetched", true, result);
+  }
+
   private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
     Map<String, Object> response = new HashMap<>();
     response.put("message", message);
