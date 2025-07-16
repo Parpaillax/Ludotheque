@@ -20,6 +20,6 @@ public class User {
     private String username;
 
     @Field(name = "PASSWORD")
-    private String pasword;
+    private String password;
 
 }
