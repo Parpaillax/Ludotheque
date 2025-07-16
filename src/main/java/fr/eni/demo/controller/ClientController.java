@@ -78,7 +78,7 @@ public class ClientController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{id]")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
       clientService.delete(id);
       Map<String, Object> response = new HashMap<>();
