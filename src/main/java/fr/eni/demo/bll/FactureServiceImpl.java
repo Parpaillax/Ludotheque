@@ -2,9 +2,11 @@ package fr.eni.demo.bll;
 
 import fr.eni.demo.bo.Facture;
 import fr.eni.demo.dal.FactureRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FactureServiceImpl implements FactureService {
 
   private final FactureRepository factureRepo;

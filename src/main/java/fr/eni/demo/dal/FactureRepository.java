@@ -1,11 +1,13 @@
 package fr.eni.demo.dal;
 
 import fr.eni.demo.bo.Facture;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface FactureRepository extends JpaRepository<Facture,Long> {
+@Repository
+public interface FactureRepository extends MongoRepository<Facture,Long> {
 
   List<Facture> findByClient(Long clientId);
   List<Facture> findByDatePayEmpty();
