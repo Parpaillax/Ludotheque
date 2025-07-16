@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface StockRepository extends MongoRepository<Stock,Long> {
   List<Stock> findByNameIsContainingIgnoreCase(String name);
+  Stock findByRefEQ(String ref);
 }

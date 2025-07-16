@@ -3,6 +3,7 @@ package fr.eni.demo.bll;
 import fr.eni.demo.bo.Stock;
 import fr.eni.demo.bo.StockCount;
 import fr.eni.demo.dal.StockRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,14 @@ public class StockServiceImpl implements StockService{
       .map(entry -> new StockCount(entry.getKey(), entry.getValue()))
       .toList();
     return result;
+  }
+
+  @Override
+  public Stock findByRef(String ref) {
+    Stock stock = stockRepository.findByRefEQ(ref);
+    if (stock == null) {
+      throw new EntityNotFoundException("Ref non valide");
+    }
+    return stock;
   }
 }

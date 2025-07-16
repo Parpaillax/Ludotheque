@@ -10,5 +10,6 @@ public interface StockService {
   void add(Stock game);
   Optional<Stock> findById(Long gameId);
   List<StockCount> findAllByName(String name);
+  Stock findByRef(String ref);
 }
 
