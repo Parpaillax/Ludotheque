@@ -1,7 +1,10 @@
 package fr.eni.demo.bo;
 
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
@@ -12,22 +15,19 @@ import java.util.Date;
 @ToString
 @Builder
 
-@Entity
-@Table(name="Facture")
+@Document(collection = "factures")
 public class Facture {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "FACTURE_ID")
-  private Long id;
+  private String id;
 
-  @Column(name = "PRICE")
+  @Field(name = "PRICE")
   private Double price;
 
-  @Column(name = "DATE_PAY")
+  @Field(name = "DATEPAY")
   private Date datePay;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "CLIENT_ID", nullable = false)
+  @DBRef
+  @Field(name = "CLIENTS")
   private Client client;
 }
