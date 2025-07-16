@@ -2,7 +2,6 @@ package fr.eni.demo.controller;
 
 import fr.eni.demo.bll.FactureService;
 import fr.eni.demo.bo.Facture;
-import fr.eni.demo.bo.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,28 +17,29 @@ public class FactureController {
 
   private final FactureService factureService;
 
-  @GetMapping()
+  // Toutes les factures
+  @GetMapping
   public ResponseEntity<Map<String, Object>> getAllFactures() {
     List<Facture> result = factureService.getAll();
-    Map<String, Object> response = new HashMap<>();
-    response.put("data", result);
-    response.put("status", 200);
-    return ResponseEntity.ok(response);
+    return buildResponse(result);
   }
 
-  @GetMapping("/client/{id}")
+  // Factures par client
+  @GetMapping("/client/{clientId}")
   public ResponseEntity<Map<String, Object>> getFactureByClient(@PathVariable Long clientId) {
-    Map<String, Object> response = new HashMap<>();
-    response.put("data", factureService.getByClient(clientId));
-    response.put("status", 200);
-    return ResponseEntity.ok(response);
+    return buildResponse(factureService.getByClient(clientId));
   }
 
+  // Factures impayees
   @GetMapping("/unpayed")
   public ResponseEntity<Map<String, Object>> getUnpayedFactures() {
     List<Facture> result = factureService.getUnpayed();
+    return buildResponse(result);
+  }
+
+  private ResponseEntity<Map<String, Object>> buildResponse(Object data) {
     Map<String, Object> response = new HashMap<>();
-    response.put("data", result);
+    response.put("data", data);
     response.put("status", 200);
     return ResponseEntity.ok(response);
   }

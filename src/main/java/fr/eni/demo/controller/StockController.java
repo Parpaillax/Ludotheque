@@ -21,25 +21,22 @@ public class StockController {
     @PostMapping
     public ResponseEntity<Map<String, Object>> create(@RequestBody Stock stock) {
         stockService.add(stock);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Stock added");
-        response.put("status", true);
-        response.put("data", new HashMap<>());
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Stock added", true, new HashMap<>());
     }
 
-    // Chercher des clients par nom
+    // Chercher un stock par id
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findById(@PathVariable Long id) {
         Optional<Stock> result = stockService.findById(id);
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "List of Clients found");
-        response.put("status", true);
-        response.put("data", result);
-
-        return ResponseEntity.ok(response);
+        return buildResponse("Stock found", true, result);
     }
 
-
+    // Reponse formatée
+    private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", message);
+        response.put("status", status);
+        response.put("data", data);
+        return ResponseEntity.ok(response);
+    }
 }
