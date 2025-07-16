@@ -11,6 +11,7 @@ import java.util.Date;
 public class LocationServiceImpl implements LocationService {
 
   private final LocationRepository locationRepository;
+  private StockService stockService;
 
   public LocationServiceImpl(LocationRepository locationRepository) {
     this.locationRepository = locationRepository;
@@ -25,6 +26,13 @@ public class LocationServiceImpl implements LocationService {
   @Override
   public void add(Location location) {
     locationRepository.save(location);
+    stockService.isRent(location.getStock(), true);
+  }
+
+  @Override
+  public void update(Location location) {
+    locationRepository.save(location);
+    stockService.isRent(location.getStock(), false);
   }
 
   @Override

@@ -32,7 +32,7 @@ public class StockServiceImpl implements StockService{
 
   @Override
   public List<StockCount> findAllByName(String name){
-    List<Stock> stocks = stockRepository.findByNameIsContainingIgnoreCase(name);
+    List<Stock> stocks = stockRepository.findByNameIsContainingIgnoreCaseAndIsRentFalse(name);
     List<StockCount> result = stocks.stream()
       .collect(Collectors.groupingBy(Stock::getName, Collectors.counting()))
       .entrySet().stream()
@@ -48,5 +48,14 @@ public class StockServiceImpl implements StockService{
       throw new EntityNotFoundException("Ref non valide");
     }
     return stock;
+  }
+
+  @Override
+  public void isRent(Stock stock, boolean value) {
+    if (stock == null) {
+      throw new EntityNotFoundException("Stock non valide");
+    }
+    stock.setIsRent(value);
+    stockRepository.save(stock);
   }
 }
