@@ -53,22 +53,17 @@ public class ClientController {
         return buildResponse("Address updated", true, new HashMap<>());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
+        clientService.delete(id);
+        return buildResponse("Address deleted", true, new HashMap<>());
+    }
     private ResponseEntity<Map<String, Object>> buildResponse(String message, boolean status, Object data) {
         Map<String, Object> response = new HashMap<>();
         response.put("message", message);
         response.put("status", status);
         response.put("data", data);
         return ResponseEntity.ok(response);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
-      clientService.delete(id);
-      Map<String, Object> response = new HashMap<>();
-      response.put("message", "Client deleted successfully");
-      response.put("status", 200);
-      response.put("data", new HashMap<>());
-      return ResponseEntity.ok(response);
     }
 
 }
