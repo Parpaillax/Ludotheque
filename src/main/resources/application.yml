@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo1
+    name: ENI-ludotheque
   #Connection to DB
   datasource:
     url: jdbc:sqlserver://localhost;databasename=LUDO_DB;integratedSecurity=false;encrypt=false;trustServerCertificate=false
@@ -15,4 +15,8 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: create
+
+  data:
+    mongodb:
+      uri: mongodb://ludo:OliMarJoh@10.22.200.15:27017/admin?authSource=admin
 
