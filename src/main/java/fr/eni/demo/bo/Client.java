@@ -28,15 +28,12 @@ public class Client {
   @Field(name = "EMAIL")
   private String email;
 
-  @DBRef
   @Field(name = "ADRESSE")
   private Adresse adresse;
 
-  @DBRef
   @Field(name = "LOCATIONS")
   private List<Location> locations;
 
-  @DBRef
   @Field(name = "FACTURES")
   private List<Facture> factures;
 }

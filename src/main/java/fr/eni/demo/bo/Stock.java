@@ -34,11 +34,9 @@ public class Stock {
   @Field(name = "GAME_IS_RENT")
   private Boolean isRent;
 
-  @DBRef
   @Field(name = "GAME_TYPE")
   private List<GameType> gameType;
 
-  @DBRef
   @Field(name = "LOCATIONS")
   private List<Location> locations;
 }

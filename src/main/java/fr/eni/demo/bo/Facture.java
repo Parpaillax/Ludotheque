@@ -27,7 +27,6 @@ public class Facture {
   @Field(name = "DATEPAY")
   private Date datePay;
 
-  @DBRef
   @Field(name = "CLIENTS")
   private Client client;
 }
