@@ -19,17 +19,18 @@ public class Location {
   @Id
   private String id;
 
+  @Field(name = "CODE_BARRE")
+  private String codeBarre;
+
   @Field(name = "LOCATION_START_DATE")
   private Date startDate;
 
   @Field(name = "LOCATION_END_DATE")
   private Date endDate;
 
-  @DBRef
   @Field(name = "CLIENT")
   private Client client;
 
-  @DBRef
   @Field(name = "STOCK")
   private Stock stock;
 }

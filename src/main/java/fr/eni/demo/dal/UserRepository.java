@@ -1,14 +1,12 @@
 package fr.eni.demo.dal;
 
-import fr.eni.demo.bo.Location;
+import fr.eni.demo.bo.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface LocationRepository extends MongoRepository<Location, Long> {
-
-    Optional<Location> findByCodeBarre(String codeBarre);
-
-}
+public interface UserRepository extends MongoRepository<User, String> {
+    Optional<User> findByUsername(String username);
+} 
