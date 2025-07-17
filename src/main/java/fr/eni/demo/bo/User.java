@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Getter
 @Setter
 @Builder
-@Document(collection = "stock")
+@Document(collection = "user")
 public class User {
 
     @Id
