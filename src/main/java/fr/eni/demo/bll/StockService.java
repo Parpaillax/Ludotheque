@@ -12,5 +12,7 @@ public interface StockService {
   List<StockCount> findAllByName(String name);
   Stock findByRef(String ref);
   void isRent(Stock stock, boolean value);
+  void update(Stock stock);
+  void delete(Stock stock);
 }
 
