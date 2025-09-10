@@ -18,4 +18,19 @@ public class GameTypeServiceImpl implements GameTypeService {
   public void add(GameType gameType) {
     gameTypeRepository.save(gameType);
   }
+
+  @Override
+  public void delete(GameType gt) {
+    gameTypeRepository.delete(gameType);
+  }
+
+  @Override
+  public void update(GameType gt) {
+    gameTypeRepository.save(gameType);
+  }
+
+  @Override
+  public List<GameType> findAll() {
+    return gameTypeRepository.findAll();
+  }
 }
