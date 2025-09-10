@@ -20,8 +20,8 @@ public class GameTypeServiceImpl implements GameTypeService {
   }
 
   @Override
-  public void delete(GameType gt) {
-    gameTypeRepository.delete(gameType);
+  public void delete(String id, GameType gt) {
+    gameTypeRepository.delete(id, gameType);
   }
 
   @Override
